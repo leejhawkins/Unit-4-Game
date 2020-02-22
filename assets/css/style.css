@@ -1,3 +1,11 @@
+
+body {
+    font-family: 'Star Jedi Logo Doubleline1' ;
+}
+
+header {
+    font-family: 'Star Jedi Hollow';
+}
 .card {
     float:left;
     border: solid black 2px;
@@ -6,11 +14,27 @@
     margin: 20px 10px;
 }
 
+img {
+   height: 75px;
+   width: 90px;
+}
+
 .card-title{
     font-size:10px;
     text-align: center;
 }
 
+.enemy-card {
+    background-color: aqua;
+}
+
+.defender-card {
+    background-color: red;
+}
+
 h3 {
     clear: both;
+}
+div {
+    height: 120px;
 }
