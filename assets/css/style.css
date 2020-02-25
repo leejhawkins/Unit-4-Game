@@ -1,6 +1,6 @@
 
 body {
-    font-family: 'Star Jedi Logo Doubleline1' ;
+    font-family: 'Star Jedi' ;
 }
 
 header {
@@ -10,8 +10,9 @@ header {
     float:left;
     border: solid black 2px;
     width: 150px;
-    height: 100px;
+    height: 110px;
     margin: 20px 10px;
+    background: green;
 }
 
 img {
@@ -32,9 +33,19 @@ img {
     background-color: red;
 }
 
+.btn {
+    float: left;
+    clear: both;
+}
+
 h3 {
     clear: both;
 }
 div {
     height: 120px;
+}
+
+#narratetext {
+    float: right;
+    font-size: 10px;
 }
