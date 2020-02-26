@@ -1,48 +1,42 @@
 
 $(document).ready(function () {
-  
+
     var jarjar = {
         name: "Jar-Jar Binks",
         image: document.images[0],
         hp: 100,
-        attack: 5,
+        attack: 10,
         counterAttack: 15,
     }
     var c3p0 = {
         name: "C3P0",
         image: document.images[1],
-        hp: 1000,
-        attack: 4,
-        counterAttack: 20
+        hp: 150,
+        attack: 46,
+        counterAttack: 18
     }
     var rancor = {
         name: "Guy Killed by Rancor",
         image: document.images[2],
         hp: 140,
-        attack: 3,
-        counterAttack: 20
+        attack: 6,
+        counterAttack: 15
     }
 
     var wedge = {
         name: "Red Leader",
         image: document.images[3],
         hp: 90,
-        attack: 7,
+        attack: 13,
         counterAttack: 25,
     }
     var players = [jarjar, c3p0, rancor, wedge];
 
     var vanquished = [];
     var newPlayerAttack = 0;
-   
-
-    var yourImage = "";
     var yourPlayerId = "";
-    var enemyPlayer = "";
-    var enemyImage = "";
     var defenderId = "";
-    var defenderImage = "";
-    var defenderCard = "";
+
 
 
 
@@ -69,11 +63,8 @@ $(document).ready(function () {
     function initializeGame() {
         $("#players,#enemies,#defender,#narratetext").empty();
 
-
-        var playerCard = "";
-        var playerImage = "";
-        var yourPlayerId = "";
-        var defenderId = "";
+        yourPlayerId = "";
+        defenderId = "";
         for (var i = 0; i < players.length; i++) {
             playerCard = $("<div>");
             playerImage = $("<div>");
@@ -81,7 +72,7 @@ $(document).ready(function () {
             playerCard.addClass("card card-title");
             playerImage.addClass("card-img-top");
             playerHp.addClass("card-text");
-    
+
             playerCard.attr("data-player", players[i].name);
             playerCard.attr("data-hp", players[i].hp);
             playerCard.attr("data-attack", players[i].attack);
@@ -93,7 +84,8 @@ $(document).ready(function () {
             playerCard.append(playerHp);
             $("#players").append(playerCard);
         }
-
+        console.log(yourPlayerId);
+        console.log(defenderId);
 
 
 
@@ -104,7 +96,7 @@ $(document).ready(function () {
 
     $(".card").on("click", function () {
         $("#players").empty();
-        
+
         yourPlayerCard = $("<div>");
         yourImage = $("<div>");
         yourPlayerHpDiv = $("<div>");
@@ -173,19 +165,19 @@ $(document).ready(function () {
                 } else if (defenderId === players[i].name) {
                     defenderImage.append(players[i].image);
                     defenderCard.append(defenderImage);
-                
+
                     defenderCard.append(defenderHpDiv);
                     $("#defender").append(defenderCard)
 
                 } else {
-                    enemyPlayer= $("<div>");
+                    enemyPlayer = $("<div>");
                     enemyImage = $("<div>");
                     enemyHp = $("<div>");
                     enemyPlayer.addClass("card card-title enemy-card");
                     enemyImage.addClass("card-img-top");
                     enemyHp.addClass("card-text");
                     enemyPlayer.attr("data-player", players[i].name);
-                    enemyPlayer.attr("data-counterattack",players[i].counterAttack)
+                    enemyPlayer.attr("data-counterattack", players[i].counterAttack)
                     enemyPlayer.attr("data-hp", players[i].hp);
                     enemyHp.append(players[i].hp);
                     enemyPlayer.text(players[i].name);
@@ -204,18 +196,18 @@ $(document).ready(function () {
             $("#narratetext").text("Pick defender to Attack");
             return
 
-        } else if(yourPlayerHp <= 0 || defenderHp <=0){
+        } else if (yourPlayerHp <= 0 || defenderHp <= 0) {
             return
-        
-        
+
+
         } else {
             $("#narratetext").empty()
-            
+
             newPlayerAttack = yourPlayerAttack + newPlayerAttack;
             console.log(newPlayerAttack);
             defenderHp = defenderHp - newPlayerAttack;
             yourPlayerHp = yourPlayerHp - defenderCounterAttack;
-            $("#narratetext").text( "You hit  " + defenderId + " for " + newPlayerAttack + "hp");
+            $("#narratetext").text("You hit  " + defenderId + " for " + newPlayerAttack + "hp");
             $("#narratetext").append("<br>");
             $("#narratetext").append(defenderId + " counterattacked you for " + defenderCounterAttack + "hp");
             defenderHpDiv.text(defenderHp);
@@ -223,13 +215,13 @@ $(document).ready(function () {
             yourPlayerHpDiv.text(yourPlayerHp);
             yourPlayerCard.append(yourPlayerHpDiv);
             if (yourPlayerHp <= 0) {
-                $("#narratetext").text("You have lost, press reset")
-            } else if (vanquished.length==2 && defenderHp <= 0) {
+                $("#narratetext").text("You have lost, press Restart")
+            } else if (vanquished.length == 2 && defenderHp <= 0) {
                 $("#defender").empty();
                 $("#narratetext").text("You vanquished them all!!! You are king of the losers!!")
                 $("#narratetext").append("<br>")
                 $("#narratetext").append("Press Restart to play")
-            
+
             } else if (defenderHp <= 0) {
                 $("#narratetext").text("You have vanquished " + defenderId + ", choose new opponent")
                 $("#defender").empty();
@@ -246,22 +238,22 @@ $(document).ready(function () {
                     defenderHpDiv.addClass("card-text")
                     defenderCard.text($(this).attr("data-player"))
                     defenderHpDiv.text($(this).attr("data-hp"));
-        
+
                     defenderId = $(this).attr("data-player");
                     defenderHp = $(this).attr("data-hp");
                     defenderCounterAttack = $(this).attr("data-counterattack")
-        
+
                     for (var i = 0; i < players.length; i++) {
                         if (yourPlayerId === players[i].name) {
-        
+
                         } else if (defenderId === players[i].name) {
                             defenderImage.append(players[i].image);
                             defenderCard.append(defenderImage);
-                        
+
                             defenderCard.append(defenderHpDiv);
                             $("#defender").append(defenderCard)
-                        } else if (vanquished[0] === players[i].name || vanquished[1]===players[i].name) {
-        
+                        } else if (vanquished[0] === players[i].name || vanquished[1] === players[i].name) {
+
                         } else {
                             enemyPlayer = $("<div>");
                             enemyImage = $("<div>");
@@ -272,7 +264,7 @@ $(document).ready(function () {
                             enemyPlayer.attr("data-player", players[i].name);
                             enemyImage.attr("data-image", players[i].image);
                             enemyPlayer.attr("data-hp", players[i].hp);
-                            enemyPlayer.attr("data-counterattack",players[i].counterAttack)
+                            enemyPlayer.attr("data-counterattack", players[i].counterAttack)
                             enemyHp.append(players[i].hp);
                             enemyPlayer.text(players[i].name);
                             enemyImage.append(players[i].image);

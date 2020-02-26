@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Star Jedi';
+    src: url('../starjedi/Starjedi.ttf')
+}
 
 body {
     font-family: 'Star Jedi' ;
@@ -9,7 +13,7 @@ body {
     border: solid black 2px;
     width: 150px;
     height: 110px;
-    margin: 20px 10px;
+    margin: 20px;
     background: green;
 }
 
@@ -39,11 +43,17 @@ img {
 h3 {
     clear: both;
 }
-div {
-    height: 120px;
+#defender,#enemies {
+    height: 100px;
+
 }
 
 #narratetext {
     float: left;
+    position: relative;
+    left: 20px;
+
+   
+    
     
 }
