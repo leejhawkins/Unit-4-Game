@@ -1,39 +1,31 @@
 
 $(document).ready(function () {
-    var imgArray = new Array();
-    imgArray[0] = new Image();
-    imgArray[0].src = "file:///C:/Users/leejh/Desktop/DU/Homework/Unit-4/Unit-4-Game/assets/images/jarjar.jfif";
-    imgArray[1] = new Image();
-    imgArray[1].src = "file:///C:/Users/leejh/Desktop/DU/Homework/Unit-4/Unit-4-Game/assets/images/c3po.jpg";
-    imgArray[2] = new Image();
-    imgArray[2].src = "file:///C:/Users/leejh/Desktop/DU/Homework/Unit-4/Unit-4-Game/assets/images/rancor.jfif";
-    imgArray[3] = new Image();
-    imgArray[3].src = "file:///C:/Users/leejh/Desktop/DU/Homework/Unit-4/Unit-4-Game/assets/images/jarjar.jfif";
+  
     var jarjar = {
         name: "Jar-Jar Binks",
-        image: imgArray[0],
+        image: document.images[0],
         hp: 100,
         attack: 5,
         counterAttack: 15,
     }
     var c3p0 = {
         name: "C3P0",
-        image: imgArray[1],
+        image: document.images[1],
         hp: 1000,
         attack: 4,
         counterAttack: 20
     }
     var rancor = {
         name: "Guy Killed by Rancor",
-        image: imgArray[2],
+        image: document.images[2],
         hp: 140,
         attack: 3,
         counterAttack: 20
     }
 
     var wedge = {
-        name: "Wedge",
-        image: imgArray[3],
+        name: "Red Leader",
+        image: document.images[3],
         hp: 90,
         attack: 7,
         counterAttack: 25,
@@ -43,7 +35,7 @@ $(document).ready(function () {
     var vanquished = [];
     var newPlayerAttack = 0;
    
-    var yourPlayer = "";
+
     var yourImage = "";
     var yourPlayerId = "";
     var enemyPlayer = "";
@@ -85,15 +77,21 @@ $(document).ready(function () {
         for (var i = 0; i < players.length; i++) {
             playerCard = $("<div>");
             playerImage = $("<div>");
+            playerHp = $("<div>");
             playerCard.addClass("card card-title");
-            // playerImage.addClass("card-img-top");
+            playerImage.addClass("card-img-top");
+            playerHp.addClass("card-text");
+    
             playerCard.attr("data-player", players[i].name);
+            playerCard.attr("data-hp", players[i].hp);
+            playerCard.attr("data-attack", players[i].attack);
+            playerCard.attr("data-counterattack", players[i].counterAttack);
+            playerHp.append(players[i].hp);
             playerImage.append(players[i].image);
             playerCard.text(players[i].name);
             playerCard.append(playerImage);
+            playerCard.append(playerHp);
             $("#players").append(playerCard);
-
-
         }
 
 
@@ -230,7 +228,7 @@ $(document).ready(function () {
                 $("#defender").empty();
                 $("#narratetext").text("You vanquished them all!!! You are king of the losers!!")
                 $("#narratetext").append("<br>")
-                $("#narratetext").append("Press Restart to play again")
+                $("#narratetext").append("Press Restart to play")
             
             } else if (defenderHp <= 0) {
                 $("#narratetext").text("You have vanquished " + defenderId + ", choose new opponent")

@@ -3,9 +3,7 @@ body {
     font-family: 'Star Jedi' ;
 }
 
-header {
-    font-family: 'Star Jedi Hollow';
-}
+
 .card {
     float:left;
     border: solid black 2px;
@@ -46,6 +44,6 @@ div {
 }
 
 #narratetext {
-    float: right;
-    font-size: 10px;
+    float: left;
+    
 }
