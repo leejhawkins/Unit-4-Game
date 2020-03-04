@@ -41,25 +41,7 @@ $(document).ready(function () {
 
 
 
-    // for (var i = 0; i < players.length; i++) {
-    //     playerCard = $("<div>");
-    //     playerImage = $("<div>");
-    //     playerHp = $("<div>");
-    //     playerCard.addClass("card card-title");
-    //     playerImage.addClass("card-img-top");
-    //     playerHp.addClass("card-text");
-
-    //     playerCard.attr("data-player", players[i].name);
-    //     playerCard.attr("data-hp", players[i].hp);
-    //     playerCard.attr("data-attack", players[i].attack);
-    //     playerCard.attr("data-counterattack", players[i].counterAttack);
-    //     playerHp.append(players[i].hp);
-    //     playerImage.append(players[i].image);
-    //     playerCard.text(players[i].name);
-    //     playerCard.append(playerImage);
-    //     playerCard.append(playerHp);
-    //     $("#players").append(playerCard);
-    // }
+    
     function initializeGame() {
         $("#players,#enemies,#defender,#narratetext").empty();
         $(".card").off("click", choosePlayer)
