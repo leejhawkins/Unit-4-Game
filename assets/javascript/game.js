@@ -41,28 +41,31 @@ $(document).ready(function () {
 
 
 
-    for (var i = 0; i < players.length; i++) {
-        playerCard = $("<div>");
-        playerImage = $("<div>");
-        playerHp = $("<div>");
-        playerCard.addClass("card card-title");
-        playerImage.addClass("card-img-top");
-        playerHp.addClass("card-text");
+    // for (var i = 0; i < players.length; i++) {
+    //     playerCard = $("<div>");
+    //     playerImage = $("<div>");
+    //     playerHp = $("<div>");
+    //     playerCard.addClass("card card-title");
+    //     playerImage.addClass("card-img-top");
+    //     playerHp.addClass("card-text");
 
-        playerCard.attr("data-player", players[i].name);
-        playerCard.attr("data-hp", players[i].hp);
-        playerCard.attr("data-attack", players[i].attack);
-        playerCard.attr("data-counterattack", players[i].counterAttack);
-        playerHp.append(players[i].hp);
-        playerImage.append(players[i].image);
-        playerCard.text(players[i].name);
-        playerCard.append(playerImage);
-        playerCard.append(playerHp);
-        $("#players").append(playerCard);
-    }
+    //     playerCard.attr("data-player", players[i].name);
+    //     playerCard.attr("data-hp", players[i].hp);
+    //     playerCard.attr("data-attack", players[i].attack);
+    //     playerCard.attr("data-counterattack", players[i].counterAttack);
+    //     playerHp.append(players[i].hp);
+    //     playerImage.append(players[i].image);
+    //     playerCard.text(players[i].name);
+    //     playerCard.append(playerImage);
+    //     playerCard.append(playerHp);
+    //     $("#players").append(playerCard);
+    // }
     function initializeGame() {
         $("#players,#enemies,#defender,#narratetext").empty();
-
+        $(".card").off("click", choosePlayer)
+        $(".enemy-card").off("click", chooseEnemy)
+        players = [jarjar, c3p0, rancor, wedge];
+        vanquished = [];
         yourPlayerId = "";
         defenderId = "";
         for (var i = 0; i < players.length; i++) {
@@ -84,8 +87,8 @@ $(document).ready(function () {
             playerCard.append(playerHp);
             $("#players").append(playerCard);
         }
-        console.log(yourPlayerId);
-        console.log(defenderId);
+        $(".card").on("click", choosePlayer)
+        
 
 
 
@@ -93,10 +96,13 @@ $(document).ready(function () {
 
     }
 
+    $(".btn-primary").on("click",initializeGame)
+    
+    $(".btn-danger").on("click", attack)
+    initializeGame();
 
-    $(".card").on("click", function () {
+    function choosePlayer() {
         $("#players").empty();
-
         yourPlayerCard = $("<div>");
         yourImage = $("<div>");
         yourPlayerHpDiv = $("<div>");
@@ -112,6 +118,7 @@ $(document).ready(function () {
         yourPlayerAttack = parseInt($(this).attr("data-attack"));
         console.log($(this).attr("data-attack"));
         console.log($(this).attr("data-hp"));
+
 
 
         for (var i = 0; i < players.length; i++) {
@@ -142,56 +149,58 @@ $(document).ready(function () {
                 $("#enemies").append(enemyPlayerCard);
             }
         }
+        $(".enemy-card").on("click", chooseEnemy)
+    }
 
-        $(".enemy-card").on("click", function () {
-            $("#enemies").empty();
-            $("#narratetext").empty();
-            defenderCard = $("<div>");
-            defenderImage = $('<div>');
-            defenderHpDiv = $('<div>');
-            defenderCard.addClass("card card-title defender-card");
-            defenderImage.addClass("card-img-top")
-            defenderHpDiv.addClass("card-text")
-            defenderCard.text($(this).attr("data-player"))
-            defenderHpDiv.text($(this).attr("data-hp"));
+    
+    function chooseEnemy() {
+        $("#enemies").empty();
+        $("#narratetext").empty();
+        defenderCard = $("<div>");
+        defenderImage = $('<div>');
+        defenderHpDiv = $('<div>');
+        defenderCard.addClass("card card-title defender-card");
+        defenderImage.addClass("card-img-top")
+        defenderHpDiv.addClass("card-text")
+        defenderCard.text($(this).attr("data-player"))
+        defenderHpDiv.text($(this).attr("data-hp"));
 
-            defenderId = $(this).attr("data-player");
-            defenderHp = $(this).attr("data-hp");
-            defenderCounterAttack = $(this).attr("data-counterattack")
+        defenderId = $(this).attr("data-player");
+        defenderHp = $(this).attr("data-hp");
+        defenderCounterAttack = $(this).attr("data-counterattack")
 
-            for (var i = 0; i < players.length; i++) {
-                if (yourPlayerId === players[i].name) {
+        for (var i = 0; i < players.length; i++) {
+            if (yourPlayerId === players[i].name) {
 
-                } else if (defenderId === players[i].name) {
-                    defenderImage.append(players[i].image);
-                    defenderCard.append(defenderImage);
+            } else if (defenderId === players[i].name) {
+                defenderImage.append(players[i].image);
+                defenderCard.append(defenderImage);
 
-                    defenderCard.append(defenderHpDiv);
-                    $("#defender").append(defenderCard)
+                defenderCard.append(defenderHpDiv);
+                $("#defender").append(defenderCard)
 
-                } else {
-                    enemyPlayer = $("<div>");
-                    enemyImage = $("<div>");
-                    enemyHp = $("<div>");
-                    enemyPlayer.addClass("card card-title enemy-card");
-                    enemyImage.addClass("card-img-top");
-                    enemyHp.addClass("card-text");
-                    enemyPlayer.attr("data-player", players[i].name);
-                    enemyPlayer.attr("data-counterattack", players[i].counterAttack)
-                    enemyPlayer.attr("data-hp", players[i].hp);
-                    enemyHp.append(players[i].hp);
-                    enemyPlayer.text(players[i].name);
-                    enemyImage.append(players[i].image);
-                    enemyPlayer.append(enemyImage);
-                    enemyPlayer.append(enemyHp);
-                    $("#enemies").append(enemyPlayer);
-                }
+            } else {
+                enemyPlayer = $("<div>");
+                enemyImage = $("<div>");
+                enemyHp = $("<div>");
+                enemyPlayer.addClass("card card-title enemy-card");
+                enemyImage.addClass("card-img-top");
+                enemyHp.addClass("card-text");
+                enemyPlayer.attr("data-player", players[i].name);
+                enemyPlayer.attr("data-counterattack", players[i].counterAttack)
+                enemyPlayer.attr("data-hp", players[i].hp);
+                enemyHp.append(players[i].hp);
+                enemyPlayer.text(players[i].name);
+                enemyImage.append(players[i].image);
+                enemyPlayer.append(enemyImage);
+                enemyPlayer.append(enemyHp);
+                $("#enemies").append(enemyPlayer);
             }
-        });
-    });
-    $(".btn-danger").on("click", function () {
+        }
+    };
 
-        console.log("you hit attack");
+   
+    function attack() {
         if (defenderId === "") {
             $("#narratetext").text("Pick defender to Attack");
             return
@@ -204,7 +213,6 @@ $(document).ready(function () {
             $("#narratetext").empty()
 
             newPlayerAttack = yourPlayerAttack + newPlayerAttack;
-            console.log(newPlayerAttack);
             defenderHp = defenderHp - newPlayerAttack;
             yourPlayerHp = yourPlayerHp - defenderCounterAttack;
             $("#narratetext").text("You hit  " + defenderId + " for " + newPlayerAttack + "hp");
@@ -278,12 +286,11 @@ $(document).ready(function () {
         }
 
 
-    })
-    $(".btn-primary").on("click", function () {
-        initializeGame();
-    });
-
-
-    // initializeGame();
-
+    }
 })
+
+
+
+
+
+
