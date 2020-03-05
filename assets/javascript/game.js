@@ -50,6 +50,7 @@ $(document).ready(function () {
         vanquished = [];
         yourPlayerId = "";
         defenderId = "";
+        newPlayerAttack = 0;
         for (var i = 0; i < players.length; i++) {
             playerCard = $("<div>");
             playerImage = $("<div>");
