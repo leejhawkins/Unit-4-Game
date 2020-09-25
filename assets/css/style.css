@@ -11,15 +11,20 @@ body {
 .card {
     float:left;
     border: solid black 2px;
-    width: 150px;
-    height: 110px;
+    font-size:10px;
     margin: 20px;
+    width:140px;
+    text-align: center;
     background: green;
 }
 
-img {
-   height: 75px;
-   width: 90px;
+/* img.card-img-top {
+   height: 120px;
+   width: 120px;
+} */
+li.list-group-item {
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .card-title{
