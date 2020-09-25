@@ -35,13 +35,18 @@ $(document).ready(function () {
     var yourPlayer;
     var defender;
     function initializeGame() {
-        $("#players,#enemies,#defender,#narratetext").empty();
+        $("#players,#enemies,#defender,#narratetext,#enemy-text").empty();
+        $("#player-text").text("Choose a character:")
+        $("#players").removeClass("col-4").addClass("col-12")
+        $("#enemies").removeClass("col-5").addClass("col-6")
+        $("#defender").removeClass("col-3")
         remainingEnemies = [];
         yourPlayer = {};
         defender = null; 
         players.map(player => {
             player.hp = player.initialHp
             player.attack = player.initialAttack
+            player.role = ""
             let playerCard = populateCard(player)
             $("#players").append(playerCard);
         })
@@ -51,12 +56,11 @@ $(document).ready(function () {
     $(".btn-danger").on("click", attack)
     initializeGame();
     function populateCard(player) {
-        return (`<div class="card" value="${player.name}" attack=${player.attack} counterattack=${player.counterAttack}>
+        return (`<div class="card ${player.role}" value="${player.name}" attack=${player.attack} counterattack=${player.counterAttack}>
                     <img src="${player.image}" value=${player.hp} class="card-img-top w-100">
                     <h5 class="card-title">
                          ${player.name}
                     </h5>
-                    </img>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">HP:${player.hp}</li>
                         <li class="list-group-item">Attack:${player.attack}</li>
@@ -69,23 +73,30 @@ $(document).ready(function () {
 
     function choosePlayer() {
         $("#players").empty();
+        $("#players").removeClass("col-12").addClass("col-6")
+
         var playerName = $(this).attr("value")
         yourPlayer = players.filter(player => player.name === playerName)[0]
+        yourPlayer.role = "your-player"
+        $("#player-text").text(`Your player is ${yourPlayer.name}`)
         $("#players").append(populateCard(yourPlayer))
         var enemies = players.filter(player => !(player.name === playerName))
         enemies.map(enemy => {
-            var enemyCard = $('<div>').addClass("enemy-card").append(populateCard(enemy))
-            $("#enemies").append(enemyCard)
+            enemy.role = "enemy"
+            $("#enemies").append(populateCard(enemy))
         })
-        $(".enemy-card").on("click", { enemies: enemies }, function (event) {
+        $("#enemy-text").text("Pick defender from enemies")
+        $(".enemy").on("click", { enemies: enemies }, function (event) {
             $("#enemies").empty();
             $("#narratetext").empty();
+            $("#enemies").removeClass("col-6").addClass("col-5")
+            $("#players").removeClass("col-6").addClass("col-4")
+            $("#defender").addClass("col-3")
             var enemies = event.data.enemies
-            console.log($(this).children('div.card').attr("value"))
-            var defenderName = $(this).children('div.card').attr("value")
+            var defenderName = $(this).attr("value")
             defender = enemies.filter(enemy => enemy.name === defenderName)[0]
-            console.log(defender)
-            $("#defender").append($('<div>').addClass("defender-card").append(populateCard(defender)))
+            defender.role = "defender"
+            $("#defender").append(populateCard(defender))
             remainingEnemies = enemies.filter(enemy => !(enemy.name === defenderName))
             remainingEnemies.map(enemy => {
                 var enemyCard = $('<div>').addClass("enemy-card").append(populateCard(enemy))
@@ -134,6 +145,7 @@ $(document).ready(function () {
                     $("#narratetext").empty();
                     var defenderName = $(this).children('div.card').attr("value")
                     defender = remainingEnemies.filter(enemy => enemy.name === defenderName)[0]
+                    defender.role = "defender"
                     $("#defender").append($('<div>').addClass("defender-card").append(populateCard(defender)))
                     remainingEnemies = remainingEnemies.filter(enemy => !(enemy.name === defenderName))
                     remainingEnemies.map(enemy => {

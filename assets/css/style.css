@@ -15,13 +15,8 @@ body {
     margin: 20px;
     width:140px;
     text-align: center;
-    background: green;
 }
 
-/* img.card-img-top {
-   height: 120px;
-   width: 120px;
-} */
 li.list-group-item {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -32,12 +27,17 @@ li.list-group-item {
     text-align: center;
 }
 
-.enemy-card {
-    background-color: aqua;
+.enemy {
+   border: solid blue 3px;
 }
 
-.defender-card {
-    background-color: red;
+.defender {
+    border: solid red 3px;
+}
+.text-box {
+    background: white;
+    border: solid black 2px;
+    border-radius: 5px;
 }
 
 .btn {
@@ -54,11 +54,7 @@ h3 {
 }
 
 #narratetext {
-    float: left;
-    position: relative;
-    left: 20px;
-
-   
-    
-    
+    border-radius: 5px;
+    background: whitesmoke;
+    position: relative;   
 }

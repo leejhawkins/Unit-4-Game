@@ -13,20 +13,42 @@
 </head>
 
 <body background="assets/images/c3po.jpg">
-    <header><h1>Battle of the Star Wars Losers!!!</h1></header>
+    <header><h1 class="text-center">Battle of the Star Wars Losers!!!</h1></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h5 id="player-text">Choose a character:</h5>
+            </div>
+            <div class="col-4">
+                <h5 id="defender-text"></h5>
+            </div>
+            <div class="col-4">
+                <h5 id="enemy-text" class="float-right"></h5>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div id="players" class="col-12">
+            </div>
+            <div id="defender"></div>
+            <div id="enemies" class="col-6"></div>   
+        </div>
+        <div class="row">
+            <p id="narratetext"></p>
+        </div>
+        
+        <div class="row">
+            <div class="btn-group" role="group">
+                <button class="btn btn-danger" type="button">Attack</button>
+                <button class="btn btn-primary" type="button">Reset</button>
+            
+            </div>
+        </div>
+        
+       
+        
+    </div>
     
-    <div id="players"></div>
-    <h3>Your Character</h3>
-    
-    <div id="enemies"></div>
-    <h3>Enemies Available to Attack</h3>
-    <h3>Fight Section</h3>
-    <input class= "btn btn-danger" type="button" value= "Attack">
-    <h3>Defender</h3>
-    
-    <div id="defender"></div>
-    <p id="narratetext"></p>
-    <input class="btn btn-primary" type="reset" value="Restart">
     <script src="assets\javascript\game.js" type="text/javascript"></script>
 </body>
 </html>
